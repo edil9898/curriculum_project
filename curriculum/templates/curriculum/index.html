@@ -1,0 +1,32 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Curriculum Project</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">  <!-- Asegúrate de tener los archivos CSS si los usas -->
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="{% url 'index' %}">Inicio</a></li>
+                <li><a href="{% url 'crear_curriculum' %}">Crear Currículum</a></li>
+                <li><a href="{% url 'registro' %}">Registro</a></li>
+                <li><a href="{% url 'login' %}">Iniciar Sesión</a></li>
+                <li><a href="{% url 'logout' %}">Cerrar Sesión</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <h1>Bienvenido al Proyecto Curriculum</h1>
+        <p>Explora las opciones para crear tu currículum y más.</p>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Curriculum Project</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!-- <!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Detalles del Currículum</title>
+</head>
+<body>
+    <h1>Currículum de {{ curriculum.usuario.nombre }}</h1>
+    <p>Fecha de creación: {{ curriculum.fecha_creacion }}</p>
+    <p>Plantilla seleccionada: {{ curriculum.plantilla_seleccionada }}</p>
+    <p>Formato de exportación: {{ curriculum.formato_exportacion }}</p>
+
+    <h2>Experiencias Laborales</h2>
+    <ul>
+        {% for experiencia in curriculum.experiencialaboral_set.all %}
+            <li>{{ experiencia.cargo }} en {{ experiencia.empresa }} ({{ experiencia.fecha_inicio }} - {{ experiencia.fecha_fin }})</li>
+            <p>{{ experiencia.descripcion }}</p>
+        {% empty %}
+            <li>No hay experiencias laborales registradas.</li>
+        {% endfor %}
+    </ul>
+
+    <h2>Educación</h2>
+    <ul>
+        {% for educacion in curriculum.educacion_set.all %}
+            <li>{{ educacion.titulo }} en {{ educacion.institucion }} ({{ educacion.fecha_inicio }} - {{ educacion.fecha_finalizacion }})</li>
+        {% empty %}
+            <li>No hay educación registrada.</li>
+        {% endfor %}
+    </ul>
+
+    <h2>Habilidades</h2>
+    <ul>
+        {% for habilidad in curriculum.habilidad_set.all %}
+            <li>{{ habilidad.nombre_habilidad }} - Nivel: {{ habilidad.nivel_competencia }}</li>
+        {% empty %}
+            <li>No hay habilidades registradas.</li>
+        {% endfor %}
+    </ul>
+
+    <h2>Referencias</h2>
+    <ul>
+        {% for referencia in curriculum.referencia_set.all %}
+            <li>{{ referencia.nombre }} - Tel: {{ referencia.telefono }} (Parentesco: {{ referencia.parentesco }})</li>
+        {% empty %}
+            <li>No hay referencias registradas.</li>
+        {% endfor %}
+    </ul>
+
+    <a href="{% url 'crear_curriculum' %}">Regresar a crear currículum</a>
+</body>
+</html> -->
