@@ -6,4 +6,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('curriculum.urls')),  # Incluir las URLs de la aplicación 'curriculum'
     path('accounts/', include('django.contrib.auth.urls')),  # Incluir rutas de autenticación (login, logout)
+    path('cv1/<int:usuario_id>/', views.generar_cv_1, name='generar_cv_1'),
 ]

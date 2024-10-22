@@ -122,3 +122,17 @@ def curriculum_detalle(request, curriculum_id):
     if curriculum.usuario != request.user:
         return HttpResponseForbidden("No tienes permiso para acceder a este currículum.")
     return render(request, 'curriculum_detalle.html', {'curriculum': curriculum})
+
+def generar_cv_1(request, usuario_id):
+    usuario = get_object_or_404(Usuario, id=usuario_id)
+    experiencias = ExperienciaLaboral.objects.filter(curriculum__usuario=usuario)
+    educacion = Educacion.objects.filter(curriculum__usuario=usuario)
+    habilidades = Habilidad.objects.filter(curriculum__usuario=usuario)
+
+    context = {
+        'usuario': usuario,
+        'experiencias': experiencias,
+        'educacion': educacion,
+        'habilidades': habilidades,
+    }
+    return render(request, 'curriculum/cv_template_1.html', context)
