@@ -37,8 +37,15 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'tailwind',
+    'theme', 
     'curriculum',
 ]
+
+AUTH_USER_MODEL = 'curriculum.Usuario'
+TAILWIND_APP_NAME = 'curriculum'
+
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

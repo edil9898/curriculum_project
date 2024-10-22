@@ -1,22 +1,35 @@
 from django.db import models
+from django.contrib.auth.models import AbstractUser
 
-class Usuario(models.Model):
-    nombre = models.CharField(max_length=100)
-    correo_electronico = models.EmailField()
-    contrasena = models.CharField(max_length=100)
+class Usuario(AbstractUser):
+    correo_electronico = models.EmailField(unique=True)
+    groups = models.ManyToManyField(
+        'auth.Group',
+        related_name='usuarios_curriculum',  # Agrega related_name aquí
+        blank=True,
+        help_text='The groups this user belongs to. A user will get all permissions granted to each of their groups.',
+        verbose_name='groups',
+    )
+    user_permissions = models.ManyToManyField(
+        'auth.Permission',
+        related_name='usuarios_curriculum',  # Agrega related_name aquí
+        blank=True,
+        help_text='Specific permissions for this user.',
+        verbose_name='user permissions',
+    )
 
     def __str__(self):
-        return self.nombre
-
+        return self.username
+        
 class Curriculum(models.Model):
     usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
     fecha_creacion = models.DateTimeField(auto_now_add=True)
     plantilla_seleccionada = models.CharField(max_length=100)
     formato_exportacion = models.CharField(max_length=100)
-     
+    
 
     def __str__(self):
-        return f"Curriculum de {self.usuario.nombre} ({self.fecha_creacion})"
+        return f"Curriculum de {self.usuario.username} ({self.fecha_creacion})"  # Usa 'username'
 
 class ExperienciaLaboral(models.Model):
     curriculum = models.ForeignKey(Curriculum, on_delete=models.CASCADE, related_name="experiencias")

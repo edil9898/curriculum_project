@@ -1,28 +1,25 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title>Registro de Usuario</title>
-</head>
-<body>
-    <h2>Registro de Usuario</h2> 
-    <form method="post">
-        {% csrf_token %}
-        {{ usuario_form.as_p }}  <!-- Mostrar el formulario -->
-        <button type="submit">Registrar</button>
-    </form>  
-
-    {% if usuario_form.errors %}
-        <ul>
-            {% for field in usuario_form %}
-                {% for error in field.errors %}
-                    <li>{{ error }}</li>
-                {% endfor %}
-            {% endfor %}
-            {% for error in usuario_form.non_field_errors %}
-                <li>{{ error }}</li>
-            {% endfor %}
-        </ul>
-    {% endif %}
-</body>
-</html>
+<h2>Registro de Usuario</h2> 
+<form method="post">
+    {% csrf_token %}
+    <div>
+        {{ usuario_form.username.label_tag }}
+        {{ usuario_form.username }}
+        {{ usuario_form.username.errors }}
+    </div>
+    <div>
+        {{ usuario_form.email.label_tag }}
+        {{ usuario_form.email }}
+        {{ usuario_form.email.errors }}
+    </div>
+    <div>
+        {{ usuario_form.password1.label_tag }}
+        {{ usuario_form.password1 }}
+        {{ usuario_form.password1.errors }}
+    </div>
+    <div>
+        {{ usuario_form.password2.label_tag }}
+        {{ usuario_form.password2 }}
+        {{ usuario_form.password2.errors }}
+    </div>
+    <button type="submit">Registrar</button>
+</form>

@@ -1,28 +1,37 @@
 from django import forms
-from django.contrib.auth.hashers import make_password
-from .models import Usuario, Curriculum, ExperienciaLaboral, Educacion, Habilidad, Referencia
+from .models import Usuario
+from .models import Curriculum, ExperienciaLaboral, Educacion, Habilidad, Referencia
+from django.contrib.auth.forms import UserCreationForm
 
-# Formulario para el registro de Usuario
-class UsuarioForm(forms.ModelForm):
-    contrasena = forms.CharField(
-        widget=forms.PasswordInput,  # Usa un campo de entrada tipo contraseña
-        label="Contraseña",
-        min_length=8,  # Puedes ajustar la longitud mínima según tus requisitos
-        help_text="Mínimo 8 caracteres"
-    )
 
+class UsuarioForm(UserCreationForm):
     class Meta:
         model = Usuario
-        fields = ['nombre', 'correo_electronico', 'contrasena']  # Incluye el campo de contraseña
+        fields = ('username', 'email')  # Incluye los campos que necesitas
 
-    # Encriptación de la contraseña antes de guardar el usuario
+    email = forms.EmailField(label="Correo electrónico")  # Campo para el correo electrónico
+    password1 = forms.CharField(label='Contraseña', widget=forms.PasswordInput)
+    password2 = forms.CharField(label='Confirmar Contraseña', widget=forms.PasswordInput)
+
+    def clean_password2(self):
+        password1 = self.cleaned_data.get('password1')
+        password2 = self.cleaned_data.get('password2')
+        if password1 and password2 and password1 != password2:
+            raise forms.ValidationError("Las contraseñas no coinciden.")
+        return password2
+
     def save(self, commit=True):
         user = super().save(commit=False)
-        user.contrasena = make_password(self.cleaned_data['contrasena'])  # Encriptar la contraseña
+        user.email = self.cleaned_data['email']
+        user.set_password(self.cleaned_data['password1'])  # Establece la contraseña de forma segura
         if commit:
             user.save()
         return user
 
+
+
+
+        
 # Formulario para la creación del Curriculum
 class CurriculumForm(forms.ModelForm):
     class Meta:
