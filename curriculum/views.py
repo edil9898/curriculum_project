@@ -5,6 +5,9 @@ from django.contrib.auth.decorators import login_required
 from .forms import UsuarioForm, CurriculumForm, ExperienciaLaboralForm, EducacionForm, HabilidadForm, ReferenciaForm
 from .models import Curriculum, Usuario
 
+
+
+
 def index(request):
     return render(request, 'curriculum/index.html')
 
@@ -46,6 +49,8 @@ def logout_view(request):
     logout(request)
     return redirect('login') 
 
+CurriculumForm, ExperienciaLaboralForm, EducacionForm, HabilidadForm, ReferenciaForm
+
 @login_required
 def crear_curriculum(request):
     if request.method == 'POST':
@@ -56,7 +61,6 @@ def crear_curriculum(request):
         referencia_form = ReferenciaForm(request.POST)
 
         if curriculum_form.is_valid() and experiencia_form.is_valid() and educacion_form.is_valid() and habilidad_form.is_valid() and referencia_form.is_valid():
-            # Obtener el usuario actual
             usuario = request.user
 
             curriculum = curriculum_form.save(commit=False)
@@ -79,7 +83,7 @@ def crear_curriculum(request):
             referencia.curriculum = curriculum
             referencia.save()
 
-            return redirect('curriculum_detalle', curriculum_id=curriculum.pk)
+            return redirect('curriculum_detalle', curriculum_id=curriculum.pk)  # Redirige a la página de detalles del currículum
     else:
         curriculum_form = CurriculumForm()
         experiencia_form = ExperienciaLaboralForm()

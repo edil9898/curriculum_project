@@ -1,6 +1,7 @@
 # curriculum_project/urls.py (archivo principal del proyecto)
 from django.contrib import admin
 from django.urls import path, include
+from curriculum import views  # Importa el módulo views de tu aplicación curriculum
 
 urlpatterns = [
     path('admin/', admin.site.urls),
