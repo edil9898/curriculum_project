@@ -5,27 +5,33 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Curriculum Project</title>
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}">  <!-- Asegúrate de tener los archivos CSS si los usas -->
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <script src="https://cdn.tailwindcss.com"></script> <!-- Importando Tailwind CSS -->
 </head>
-<body>
-    <header>
-        <nav>
-            <ul>
-                <li><a href="{% url 'index' %}">Inicio</a></li>
-                <li><a href="{% url 'crear_curriculum' %}">Crear Currículum</a></li>
-                <li><a href="{% url 'registro' %}">Registro</a></li>
-                <li><a href="{% url 'login' %}">Iniciar Sesión</a></li>
-                <li><a href="{% url 'logout' %}">Cerrar Sesión</a></li>
+<body class="bg-gray-100 text-gray-800">
+    <header class="bg-blue-600 text-white shadow-lg">
+        <nav class="container mx-auto p-4">
+            <ul class="flex justify-around">
+                <li><a href="{% url 'index' %}" class="hover:text-gray-300">Inicio</a></li>
+                <li><a href="{% url 'crear_curriculum' %}" class="hover:text-gray-300">Crear Currículum</a></li>
+                <li><a href="{% url 'registro' %}" class="hover:text-gray-300">Registro</a></li>
+                <li><a href="{% url 'login' %}" class="hover:text-gray-300">Iniciar Sesión</a></li>
+                <li><a href="{% url 'logout' %}" class="hover:text-gray-300">Cerrar Sesión</a></li>
             </ul>
         </nav>
     </header>
 
-    <main>
-        <h1>Bienvenido al Proyecto Curriculum</h1>
-        <p>Explora las opciones para crear tu currículum y más.</p>
+    <main class="container mx-auto p-8">
+        <h1 class="text-4xl font-bold text-center mb-6">Bienvenido al Proyecto Curriculum</h1>
+        <p class="text-lg text-center mb-4">Explora las opciones para crear tu currículum y más.</p>
+        <div class="flex justify-center">
+            <a href="{% url 'crear_curriculum' %}" class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-500">
+                Crear Currículum
+            </a>
+        </div>
     </main>
 
-    <footer>
+    <footer class="bg-gray-800 text-white text-center p-4 mt-8">
         <p>&copy; 2024 Curriculum Project</p>
     </footer>
 </body>

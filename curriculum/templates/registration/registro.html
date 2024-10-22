@@ -1,25 +1,48 @@
-<h2>Registro de Usuario</h2> 
-<form method="post">
+<h2 class="text-2xl font-bold mb-6 text-center">Registro de Usuario</h2> 
+<script src="https://cdn.tailwindcss.com"></script>
+<form method="post" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
     {% csrf_token %}
-    <div>
-        {{ usuario_form.username.label_tag }}
-        {{ usuario_form.username }}
-        {{ usuario_form.username.errors }}
+    <div class="mb-4">
+        <label for="{{ usuario_form.username.id_for_label }}" class="block text-gray-700 text-sm font-bold mb-2">
+            {{ usuario_form.username.label }}
+        </label>
+        <input type="text" name="{{ usuario_form.username.name }}" id="{{ usuario_form.username.id_for_label }}"
+            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            value="{{ usuario_form.username.value }}">
+        <p class="text-red-500 text-xs italic">{{ usuario_form.username.errors }}</p>
     </div>
-    <div>
-        {{ usuario_form.email.label_tag }}
-        {{ usuario_form.email }}
-        {{ usuario_form.email.errors }}
+
+    <div class="mb-4">
+        <label for="{{ usuario_form.email.id_for_label }}" class="block text-gray-700 text-sm font-bold mb-2">
+            {{ usuario_form.email.label }}
+        </label>
+        <input type="email" name="{{ usuario_form.email.name }}" id="{{ usuario_form.email.id_for_label }}"
+            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            value="{{ usuario_form.email.value }}">
+        <p class="text-red-500 text-xs italic">{{ usuario_form.email.errors }}</p>
     </div>
-    <div>
-        {{ usuario_form.password1.label_tag }}
-        {{ usuario_form.password1 }}
-        {{ usuario_form.password1.errors }}
+
+    <div class="mb-4">
+        <label for="{{ usuario_form.password1.id_for_label }}" class="block text-gray-700 text-sm font-bold mb-2">
+            {{ usuario_form.password1.label }}
+        </label>
+        <input type="password" name="{{ usuario_form.password1.name }}" id="{{ usuario_form.password1.id_for_label }}"
+            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+        <p class="text-red-500 text-xs italic">{{ usuario_form.password1.errors }}</p>
     </div>
-    <div>
-        {{ usuario_form.password2.label_tag }}
-        {{ usuario_form.password2 }}
-        {{ usuario_form.password2.errors }}
+
+    <div class="mb-4">
+        <label for="{{ usuario_form.password2.id_for_label }}" class="block text-gray-700 text-sm font-bold mb-2">
+            {{ usuario_form.password2.label }}
+        </label>
+        <input type="password" name="{{ usuario_form.password2.name }}" id="{{ usuario_form.password2.id_for_label }}"
+            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+        <p class="text-red-500 text-xs italic">{{ usuario_form.password2.errors }}</p>
     </div>
-    <button type="submit">Registrar</button>
+
+    <div class="flex items-center justify-between">
+        <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+            Registrar
+        </button>
+    </div>
 </form>
