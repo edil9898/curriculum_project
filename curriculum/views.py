@@ -5,6 +5,7 @@ from django.contrib.auth.decorators import login_required
 from .forms import UsuarioForm, CurriculumForm, ExperienciaLaboralForm, EducacionForm, HabilidadForm, ReferenciaForm
 from .models import Curriculum, Usuario
 from .models import ExperienciaLaboral,Educacion,Habilidad
+from weasyprint import HTML
 
 
 
@@ -123,6 +124,7 @@ def agregar_experiencia(request, curriculum_id):
 @login_required
 def curriculum_detalle(request, curriculum_id):
     curriculum = get_object_or_404(Curriculum, id=curriculum_id)
+    
     # Verificar si el usuario actual es el propietario del currículum
     if curriculum.usuario != request.user:
         return HttpResponseForbidden("No tienes permiso para acceder a este currículum.")
@@ -140,4 +142,13 @@ def generar_cv_1(request, usuario_id):
         'educacion': educacion,
         'habilidades': habilidades,
     }
-    return render(request, 'curriculum/cv_template_1.html', context)
+     # Renderizar la plantilla HTML con el contexto
+    html_template = render(request, 'curriculum/cv_template_1.html', context)
+
+    # Generar el PDF con WeasyPrint
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = 'inline; filename="cv.pdf"'
+    HTML(string=html_template.content.decode('utf-8')).write_pdf(response)
+
+    return response
+    # return render(request, 'curriculum/cv_template_1.html', context)
