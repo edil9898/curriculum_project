@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 
 class Usuario(AbstractUser):
-    correo_electronico = models.EmailField(unique=True)
+    
     groups = models.ManyToManyField(
         'auth.Group',
         related_name='usuarios_curriculum',  # Agrega related_name aquí

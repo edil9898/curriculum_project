@@ -16,7 +16,7 @@ class UsuarioForm(UserCreationForm):
         model = Usuario
         fields = ('username', 'email')  # Incluye los campos que necesitas
 
-    email = forms.EmailField(label="Correo electrónico")  # Campo para el correo electrónico
+    email = forms.EmailField(label="email")  # Campo para el correo electrónico
     password1 = forms.CharField(label='Contraseña', widget=forms.PasswordInput)
     password2 = forms.CharField(label='Confirmar Contraseña', widget=forms.PasswordInput)
 
