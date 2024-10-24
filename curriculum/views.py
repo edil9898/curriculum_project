@@ -3,8 +3,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from .forms import UsuarioForm, CurriculumForm, ExperienciaLaboralForm, EducacionForm, HabilidadForm, ReferenciaForm
-from .models import Curriculum, Usuario
-from .models import ExperienciaLaboral,Educacion,Habilidad
+from .models import Curriculum, Usuario,ExperienciaLaboral,Educacion,Habilidad
 from django.http import HttpResponse
 from weasyprint import HTML
 
@@ -125,11 +124,21 @@ def agregar_experiencia(request, curriculum_id):
 @login_required
 def curriculum_detalle(request, curriculum_id):
     curriculum = get_object_or_404(Curriculum, id=curriculum_id)
-    
     # Verificar si el usuario actual es el propietario del currículum
     if curriculum.usuario != request.user:
         return HttpResponseForbidden("No tienes permiso para acceder a este currículum.")
-    return render(request, 'curriculum_detalle.html', {'curriculum': curriculum})
+    
+    experiencias = ExperienciaLaboral.objects.filter(curriculum=curriculum)
+    educacion = Educacion.objects.filter(curriculum=curriculum)
+    habilidades = Habilidad.objects.filter(curriculum=curriculum)
+
+    context = {
+        'usuario': curriculum.usuario,  # Pasa el usuario asociado al currículum
+        'experiencias': experiencias,
+        'educacion': educacion,
+        'habilidades': habilidades,
+    }
+    return render(request, 'curriculum/cv_template_1.html', context)
 
 def generar_cv_1(request, usuario_id):
     usuario = get_object_or_404(Usuario, id=usuario_id)
