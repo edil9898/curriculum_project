@@ -6,6 +6,7 @@ from .forms import UsuarioForm, CurriculumForm, ExperienciaLaboralForm, Educacio
 from .models import Curriculum, Usuario,ExperienciaLaboral,Educacion,Habilidad
 from django.http import HttpResponse
 from weasyprint import HTML
+from django.template.loader import render_to_string
 
 
 
@@ -152,13 +153,28 @@ def generar_cv_1(request, usuario_id):
         'educacion': educacion,
         'habilidades': habilidades,
     }
-     # Renderizar la plantilla HTML con el contexto
-    html_template = render(request, 'curriculum/cv_template_1.html', context)
+    return render(request, 'curriculum/cv_template_1.html', context) 
+
+
+def descargar_cv_1(request, usuario_id):
+    usuario = get_object_or_404(Usuario, id=usuario_id)
+    experiencias = ExperienciaLaboral.objects.filter(curriculum__usuario=usuario)
+    educacion = Educacion.objects.filter(curriculum__usuario=usuario)
+    habilidades = Habilidad.objects.filter(curriculum__usuario=usuario)
+
+    context = {
+        'usuario': usuario,
+        'experiencias': experiencias,
+        'educacion': educacion,
+        'habilidades': habilidades,
+    }
+
+    # Renderizar la plantilla HTML a una cadena
+    html_string = render_to_string('curriculum/cv_template_1.html', context)
 
     # Generar el PDF con WeasyPrint
     response = HttpResponse(content_type='application/pdf')
     response['Content-Disposition'] = 'inline; filename="cv.pdf"'
-    HTML(string=html_template.content.decode('utf-8')).write_pdf(response)
+    HTML(string=html_string).write_pdf(response)
 
     return response
-    # return render(request, 'curriculum/cv_template_1.html', context)
