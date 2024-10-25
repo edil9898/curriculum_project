@@ -7,6 +7,8 @@ from .models import Curriculum, Usuario,ExperienciaLaboral,Educacion,Habilidad
 from django.http import HttpResponse
 from weasyprint import HTML
 from django.template.loader import render_to_string
+from django.template.loader import get_template
+
 
 
 
@@ -170,11 +172,13 @@ def descargar_cv_1(request, usuario_id):
     }
 
     # Renderizar la plantilla HTML a una cadena
+    template = get_template('curriculum/cv_template_1.html')
     html_string = render_to_string('curriculum/cv_template_1.html', context)
 
     # Generar el PDF con WeasyPrint
     response = HttpResponse(content_type='application/pdf')
     response['Content-Disposition'] = 'inline; filename="cv.pdf"'
-    HTML(string=html_string).write_pdf(response)
+    HTML(string=html_string, base_url=request.build_absolute_uri()).write_pdf(response)
+    
 
     return response
