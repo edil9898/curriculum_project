@@ -173,7 +173,7 @@ def descargar_cv_1(request, usuario_id):
 
     # Renderizar la plantilla HTML a una cadena
     template = get_template('curriculum/cv_template_1.html')
-    html_string = render_to_string('curriculum/cv_template_1.html', context)
+    html_string = template.render(context, request=request)  # <-- Cambia esta línea
 
     # Generar el PDF con WeasyPrint
     response = HttpResponse(content_type='application/pdf')
