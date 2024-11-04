@@ -220,14 +220,27 @@ def descargar_cv_1(request, usuario_id):
     response['Content-Disposition'] = 'attachment; filename="curriculum.pdf"'
     return response
 
+import stripe
+from django.conf import settings
+from django.shortcuts import render, redirect
+from django.views import View
+from django.contrib.auth.mixins import LoginRequiredMixin
+
+
+
 # Vista para manejar los cargos de Stripe
 class ChargeView(LoginRequiredMixin, View):
     def get(self, request):
-        return render(request, 'payment/charge.html')
+        return render(request, 'payment/charge.html', {
+            'STRIPE_PUBLIC_KEY': settings.STRIPE_PUBLIC_KEY,  # Solo la clave pública aquí
+        })
 
     def post(self, request):
         amount = 100  # en centavos (1 USD)
         currency = 'usd'
+        
+        # Configura la clave secreta solo aquí
+        stripe.api_key = settings.STRIPE_SECRET_KEY
         
         try:
             stripe.Charge.create(
@@ -242,5 +255,3 @@ class ChargeView(LoginRequiredMixin, View):
         
         except stripe.error.CardError as e:
             return render(request, 'payment/charge_failed.html', {'error': str(e)})
-        
-        
