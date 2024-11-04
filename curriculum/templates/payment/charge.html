@@ -1,0 +1,60 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Acceso Premium a Plantillas</title>
+    <script src="https://js.stripe.com/v3/"></script>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+    <div class="bg-white rounded-lg shadow-lg p-8 max-w-md w-full">
+        <h1 class="text-2xl font-bold text-center text-gray-800 mb-6">Acceso Premium a Plantillas de CV</h1>
+        <p class="text-center text-gray-600 mb-4">Costo: <span class="text-green-500 font-semibold">$1.00</span></p>
+        
+        <form action="{% url 'charge' %}" method="post" id="payment-form" class="space-y-4">
+            {% csrf_token %}
+            <div id="card-element" class="p-3 border border-gray-300 rounded-lg"></div>
+            <button type="submit" class="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg transition duration-300">
+                Pagar
+            </button>
+        </form>
+
+        <script src="https://js.stripe.com/v3/"></script>
+        <script>
+            var stripe = Stripe('sk_test_51QHEPgJWRq8I5huEOUq72lRdgGww2tl2ofWaenc9Opc7f4OgN3rERcbnWAUaBSlQrw70qVQOGiaVtnWB7735oK7c00O0ANy3ti');
+            var elements = stripe.elements();
+            var card = elements.create('card', {
+                style: {
+                    base: {
+                        fontSize: '16px',
+                        color: '#32325d',
+                        '::placeholder': {
+                            color: '#a0aec0',
+                        },
+                    },
+                }
+            });
+            card.mount('#card-element');
+        
+            var form = document.getElementById('payment-form');
+            form.addEventListener('submit', function(event) {
+                event.preventDefault();
+        
+                stripe.createToken(card).then(function(result) {
+                    if (result.error) {
+                        console.error(result.error.message);
+                    } else {
+                        var hiddenInput = document.createElement('input');
+                        hiddenInput.setAttribute('type', 'hidden');
+                        hiddenInput.setAttribute('name', 'stripeToken');
+                        hiddenInput.setAttribute('value', result.token.id);
+                        form.appendChild(hiddenInput);
+                        form.submit();
+                    }
+                });
+            });
+        </script>
+    </div>
+</body>
+</html>

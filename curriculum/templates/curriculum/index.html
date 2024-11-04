@@ -6,33 +6,96 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Curriculum Project</title>
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
-    <script src="https://cdn.tailwindcss.com"></script> <!-- Importando Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-100 text-gray-800">
+<body class="bg-gradient-to-r from-blue-50 via-blue-100 to-blue-200 text-gray-800 flex flex-col min-h-screen">
+    <!-- Header -->
     <header class="bg-blue-600 text-white shadow-lg">
         <nav class="container mx-auto p-4">
-            <ul class="flex justify-around">
+            <ul class="flex justify-around text-lg font-semibold">
                 <li><a href="{% url 'index' %}" class="hover:text-gray-300">Inicio</a></li>
                 <li><a href="{% url 'crear_curriculum' %}" class="hover:text-gray-300">Crear Currículum</a></li>
                 <li><a href="{% url 'registro' %}" class="hover:text-gray-300">Registro</a></li>
                 <li><a href="{% url 'login' %}" class="hover:text-gray-300">Iniciar Sesión</a></li>
-                <li><a href="{% url 'logout' %}" class="hover:text-gray-300 hidden">Cerrar Sesión</a> </li>
+                <li><a href="{% url 'logout' %}" class="hover:text-gray-300">Cerrar Sesión</a></li>
             </ul>
         </nav>
     </header>
 
-    <main class="container mx-auto p-8">
-        <h1 class="text-4xl font-bold text-center mb-6">Bienvenido al Proyecto Curriculum</h1>
-        <p class="text-lg text-center mb-4">Explora las opciones para crear tu currículum y más.</p>
-        <div class="flex justify-center">
-            <a href="{% url 'crear_curriculum' %}" class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-500">
-                Crear Currículum
-            </a>
-        </div>
+    <h2>Plantillas Disponibles</h2>
+<ul>
+    {% for plantilla in plantillas %}
+        <li>{{ plantilla.nombre }}{% if plantilla.es_premium %} (Premium){% endif %}</li>
+    {% endfor %}
+</ul>
+
+{% if not user.es_premium %}
+    <!-- Botón para acceder a la vista de compra premium -->
+    <div style="margin-top: 20px;">
+        <a href="{% url 'charge' %}" class="btn btn-primary" style="padding: 10px 20px; background-color: #007bff; color: white; text-decoration: none; border-radius: 5px;">
+            Accede a Plantillas Premium
+        </a>
+    </div>
+{% endif %}
+
+
+    <!-- Main Content with Cascading Sections -->
+    <main class="container mx-auto p-8 flex-grow space-y-16">
+        <!-- Sección 1 -->
+        <section class="grid grid-cols-1 md:grid-cols-2 gap-4 items-center">
+            <div class="bg-white shadow-lg p-8 rounded-lg">
+                <h2 class="text-3xl font-bold text-blue-600 mb-4">Sección 1: Introducción</h2>
+                <p class="text-gray-700">Esta es una breve introducción sobre el proyecto y cómo puede ayudarte a crear tu currículum de manera profesional.</p>
+            </div>
+            <div class="bg-blue-300 rounded-lg h-64 flex items-center justify-center text-white text-3xl font-bold">
+                Imagen 1
+            </div>
+        </section>
+
+        <!-- Sección 2 -->
+        <section class="grid grid-cols-1 md:grid-cols-2 gap-4 items-center">
+            <div class="order-2 md:order-1 bg-blue-300 rounded-lg h-64 flex items-center justify-center text-white text-3xl font-bold">
+                Imagen 2
+            </div>
+            <div class="order-1 md:order-2 bg-white shadow-lg p-8 rounded-lg">
+                <h2 class="text-3xl font-bold text-blue-600 mb-4">Sección 2: Funcionalidades</h2>
+                <p class="text-gray-700">Descubre todas las funcionalidades disponibles en el proyecto para optimizar tu perfil profesional.</p>
+            </div>
+        </section>
+
+        <!-- Sección 3 -->
+        <section class="grid grid-cols-1 md:grid-cols-2 gap-4 items-center">
+            <div class="bg-white shadow-lg p-8 rounded-lg">
+                <h2 class="text-3xl font-bold text-blue-600 mb-4">Sección 3: Personalización</h2>
+                <p class="text-gray-700">Personaliza cada aspecto de tu currículum y hazlo único con nuestras herramientas.</p>
+            </div>
+            <div class="bg-blue-300 rounded-lg h-64 flex items-center justify-center text-white text-3xl font-bold">
+                Imagen 3
+            </div>
+        </section>
+
+        <!-- Sección 4 -->
+        <section class="grid grid-cols-1 md:grid-cols-2 gap-4 items-center">
+            <div class="order-2 md:order-1 bg-blue-300 rounded-lg h-64 flex items-center justify-center text-white text-3xl font-bold">
+                Imagen 4
+            </div>
+            <div class="order-1 md:order-2 bg-white shadow-lg p-8 rounded-lg">
+                <h2 class="text-3xl font-bold text-blue-600 mb-4">Sección 4: Exportación</h2>
+                <p class="text-gray-700">Exporta tu currículum en diferentes formatos y compártelo fácilmente.</p>
+            </div>
+        </section>
     </main>
 
-    <footer class="bg-gray-800 text-white text-center p-4 mt-8">
-        <p>&copy; 2024 Curriculum Project</p>
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white text-center p-6 mt-8">
+        <div class="container mx-auto">
+            <p class="text-sm">&copy; 2024 Curriculum Project</p>
+            <div class="flex justify-center space-x-4 mt-4">
+                <a href="#" class="text-gray-400 hover:text-gray-100">Política de Privacidad</a>
+                <a href="#" class="text-gray-400 hover:text-gray-100">Términos de Servicio</a>
+                <a href="#" class="text-gray-400 hover:text-gray-100">Contáctanos</a>
+            </div>
+        </div>
     </footer>
 </body>
 </html>

@@ -1,0 +1,80 @@
+/* Estructura general */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 800px;
+    margin: 20px auto;
+    background-color: #fff;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+/* Encabezado */
+header {
+    text-align: center;
+    border-bottom: 2px solid #e0e0e0;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+}
+
+header h1 {
+    font-size: 2em;
+    color: #333;
+    margin: 0;
+}
+
+header .email {
+    font-size: 1em;
+    color: #555;
+}
+
+.photo img {
+    border-radius: 50%;
+    width: 150px;
+}
+
+/* Secciones */
+h2 {
+    font-size: 1.5em;
+    color: #666;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 8px;
+    margin-bottom: 15px;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+li {
+    margin-bottom: 8px;
+}
+
+.skills, .education, .experience, .references {
+    margin-bottom: 20px;
+}
+
+/* Botón de descarga */
+.download a {
+    display: inline-block;
+    text-decoration: none;
+    color: #fff;
+    background-color: #007bff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+.download a:hover {
+    background-color: #0056b3;
+}

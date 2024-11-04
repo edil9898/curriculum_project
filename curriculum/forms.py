@@ -1,6 +1,5 @@
 from django import forms
-from .models import Usuario
-from .models import Curriculum, ExperienciaLaboral, Educacion, Habilidad, Referencia
+from .models import Usuario, Curriculum, ExperienciaLaboral, Educacion, Habilidad, Referencia
 from django.contrib.auth.forms import UserCreationForm
 
 PLANTILLAS_CHOICES = [
@@ -8,8 +7,6 @@ PLANTILLAS_CHOICES = [
     ('plantilla_2', 'Plantilla 2'),
     # ... añade más opciones si las tienes
 ]
-
-
 
 class UsuarioForm(UserCreationForm):
     class Meta:
@@ -34,15 +31,29 @@ class UsuarioForm(UserCreationForm):
         if commit:
             user.save()
         return user
-    
-    
+
 # Formulario para la creación del Curriculum
 class CurriculumForm(forms.ModelForm):
     plantilla_seleccionada = forms.ChoiceField(choices=PLANTILLAS_CHOICES)
 
     class Meta:
         model = Curriculum
-        fields = ['plantilla_seleccionada', 'formato_exportacion']
+        fields = [
+            'plantilla_seleccionada', 
+            'nombres',         # Agregar nombres al formulario
+            'apellidos',       # Agregar apellidos al formulario
+            'telefono',        # Agregar teléfono al formulario
+            'direccion',       # Agregar dirección al formulario
+            'foto'
+        ]
+
+    def __init__(self, *args, **kwargs):
+        # Establece el usuario si se pasa como parte de kwargs
+        self.usuario = kwargs.pop('usuario', None)
+        super(CurriculumForm, self).__init__(*args, **kwargs)
+        if self.usuario:
+            self.instance.usuario = self.usuario  # Asigna el usuario actual al currículum
+
 
 # Formulario para la experiencia laboral
 class ExperienciaLaboralForm(forms.ModelForm):
@@ -101,5 +112,3 @@ class ReferenciaForm(forms.ModelForm):
     class Meta:
         model = Referencia
         fields = ['nombre', 'edad', 'telefono', 'parentesco']
-
-  

@@ -1,0 +1,25 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Plantillas</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">  <!-- Agrega tus estilos aquí -->
+</head>
+<body>
+    <h1>Lista de Plantillas</h1>
+    <ul>
+        {% for plantilla in plantillas %}
+            <li>
+                <a href="{% url 'ver_plantilla' plantilla.id %}">{{ plantilla.nombre }}</a>  <!-- Ajusta según tu modelo -->
+                <p>{{ plantilla.descripcion }}</p>  <!-- Asumiendo que tienes una descripción en tu modelo -->
+            </li>
+        {% empty %}
+            <li>No hay plantillas disponibles.</li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'crear_curriculum' %}">Crear un nuevo currículum</a>
+</body>
+</html>

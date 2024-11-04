@@ -14,10 +14,23 @@ from pathlib import Path
 import os
 from pathlib import Path
 
+
+
+
+
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
 STATIC_URL = '/static/'
+STATICFILES_DIRS = [BASE_DIR / "static"]
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+STATICFILES_DIRS = [     # Agrega esta línea
+    BASE_DIR / 'static',
+]
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 
@@ -30,7 +43,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 SECRET_KEY = 'django-insecure-1(ag+d&1dqflpjhk*6%#4(vx4ub(68im39n=r!-vb85v=6mdm@'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = []
 
@@ -140,6 +153,9 @@ LOGOUT_REDIRECT_URL = 'login'  # Página a la que redirige después del logout
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = 'static/'
+
+STRIPE_SECRET_KEY = 'sk_test_51QHEPgJWRq8I5huEOUq72lRdgGww2tl2ofWaenc9Opc7f4OgN3rERcbnWAUaBSlQrw70qVQOGiaVtnWB7735oK7c00O0ANy3ti'
+STRIPE_PUBLIC_KEY = 'pk_test_51QHEPgJWRq8I5huEIEOTxpOR00IPaIQbLfcnbxzVySNizVhSFJIN0ONE5bwwrLv9UJmYgdCnv36nyWiQn5R1JKKn00UJoeNq9h'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
